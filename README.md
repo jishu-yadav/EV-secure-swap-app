@@ -1,2 +1,2 @@
-# EV-secure-swap-app-
+# EV-secure-swap-app
 Privacy-Preserving Authentication Protocol
