@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, make_response
 from flask_mysqldb import MySQL
 from utility import generate_unique_id, get_date
 from collections import OrderedDict
+from blockchain import ElectricVehicle, RoadSideUnit, Blockchain
 
 app=Flask(__name__)
 
