@@ -1,10 +1,8 @@
-!pip install pycryptodome
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import pkcs1_15
 from datetime import datetime
 import json
-from utility import generate_unique_id
 
 class ElectricVehicle:
     def __init__(self, identity):
@@ -17,12 +15,17 @@ class ElectricVehicle:
         signature = pkcs1_15.new(self.private_key).sign(hash_value)
         return signature
 
-    def transmit_transaction_details(self, transaction_details):
+    def transmit_transaction_details(self, transaction_details, rsu_public_key):
+        # Adding timestamp to transaction details
         transaction_details['timestamp'] = str(datetime.now())
+
+        # Serializing transaction details
         serialized_data = json.dumps(transaction_details)
+
+        # Signing transaction details
         signature = self.sign_data(serialized_data)
 
-        # Transmitting data, hash, and signature
+        # Transmitting data, hash, and signature to RSU
         return serialized_data, signature
 
 class RoadSideUnit:
@@ -38,7 +41,7 @@ class RoadSideUnit:
             hash_value = SHA256.new(serialized_data.encode('utf-8'))
             pkcs1_15.new(self.public_key).verify(hash_value, signature)
 
-            # printing after Successfully verified
+            # Printing after Successfully verified
             print("Data integrity verified.")
             return transaction_details
         except (ValueError, TypeError):
@@ -51,3 +54,22 @@ class Blockchain:
 
     def add_block(self, block):
         self.chain.append(block)
+
+# Sample exmaple usage
+ev = ElectricVehicle("EV12345")
+rsu_public_key = ev.public_key
+
+ev_transaction_details = {
+    "identity": ev.identity,
+    "swapping_timestamp": "2022-03-20 10:00:00",
+    "payment_record": "$50"
+}
+
+serialized_data, signature = ev.transmit_transaction_details(ev_transaction_details, rsu_public_key)
+
+rsu = RoadSideUnit(rsu_public_key)
+verified_transaction_details = rsu.verify_transaction(serialized_data, signature)
+
+if verified_transaction_details:
+    blockchain = Blockchain()
+    blockchain.add_block(verified_transaction_details)
