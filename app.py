@@ -7,9 +7,9 @@ from transactionblock import blockchain, node_identifier
 from blockchain import ElectricVehicle, RoadSideUnit, Blockchain
 import datetime
 
-=======
+
 from blockchain import ElectricVehicle, RoadSideUnit, Blockchain
-main
+
 
 app=Flask(__name__)
 
