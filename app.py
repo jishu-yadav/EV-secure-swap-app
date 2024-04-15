@@ -2,10 +2,14 @@ from flask import Flask, request, jsonify, make_response
 from flask_mysqldb import MySQL
 from utility import generate_unique_id, get_date, sign_transaction, transmit_transaction, generateKeys
 from collections import OrderedDict
+EVDetailsModule
 from transactionblock import blockchain, node_identifier
 from blockchain import ElectricVehicle, RoadSideUnit, Blockchain
 import datetime
 
+=======
+from blockchain import ElectricVehicle, RoadSideUnit, Blockchain
+main
 
 app=Flask(__name__)
 
