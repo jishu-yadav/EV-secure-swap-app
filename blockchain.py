@@ -1,4 +1,3 @@
-EVDetailsModule
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import pkcs1_15
@@ -141,4 +140,4 @@ verified_transaction_details = rsu.verify_transaction(serialized_data, signature
 if verified_transaction_details:
     blockchain = Blockchain()
     blockchain.add_block(verified_transaction_details)
-main
+
