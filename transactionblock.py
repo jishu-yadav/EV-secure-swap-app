@@ -94,13 +94,15 @@ class Blockchain:
         return guess_hash[:4] == "0000"
 
 # Instantiate the Node
-app = Flask(__name__)
+#app = Flask(__name__)
 
 # Generate a globally unique address for this node
 node_identifier = str(uuid4()).replace('-', '')
 
 # Instantiate the Blockchain
 blockchain = Blockchain()
+
+#Old Code Block 
 
 '''@app.route('/transactions/new', methods=['POST'])
 def new_transaction():
